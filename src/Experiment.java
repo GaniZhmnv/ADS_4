@@ -26,11 +26,11 @@ public class Experiment {
         }
 
         for (int i = 0; i < size - 1; i++) {
-            g.addEdge(i, i + 1);
+            g.addEdge(i, i + 1, i + 2);
         }
 
         for (int i = 0; i < size - 2; i += 2) {
-            g.addEdge(i, i + 2);
+            g.addEdge(i, i + 2, i + 3);
         }
 
         System.out.println("Graph size: " + size);
@@ -41,11 +41,19 @@ public class Experiment {
         }
 
         runTraversals(g);
+
+        long startDijkstra = System.nanoTime();
+        g.dijkstra(0);
+        long endDijkstra = System.nanoTime();
+
+        System.out.println("Dijkstra time: " + (endDijkstra - startDijkstra) + " ns");
         System.out.println();
     }
 
     public void printResults() {
         System.out.println("BFS and DFS were tested on 10, 30, and 100 vertices.");
-        System.out.println("Expected complexity: O(V + E).");
+        System.out.println("Dijkstra was tested on weighted graphs.");
+        System.out.println("BFS and DFS expected complexity: O(V + E).");
+        System.out.println("Dijkstra without priority queue expected complexity: O(V^2 + E).");
     }
 }
